@@ -10,8 +10,9 @@
 		require 'nav.php';
 	?>
 
+
     <?php
-        $con = mysqli_connect("localhost","root","","ams");
+        $con = mysqli_connect("localhost","root","root","ams");
         // Check connection
         if (mysqli_connect_errno())
         {
@@ -22,6 +23,7 @@
         {
             die("Error: " . mysqli_error($con));
         }
+
     ?>
 
 	        <div id="page-wrapper">
@@ -60,7 +62,8 @@
                         </div>
                     </div>
                 </div>
-                <br>	
+                <br>
+
 
 				<div class="table">
                     	<div class="table-responsive">
@@ -78,14 +81,19 @@
 
                                 <?php 
                                         while ($course=mysqli_fetch_array($result))
-                                        { 
+                                        {
+
                                     ?>
                                         <tr>
                                         <td><?php echo $course['course_id']; ?></td>
                                         <td><?php echo $course['course_name']; ?></td>
                                         <td><?php echo $course['duration']; ?></td>
                                         <td><?php echo $course['course_type']; ?></td>
-                                        <td> <a href=edit_course.php?> <button class=btn>Edit</button></a> <a href=delete_course.php?id=<?php echo $course['course_id']; ?>> <button class=btn>Delete</button></a></td>
+                                        <td>
+                                            <a href=edit_course.php?id=<?php echo $course['course_id']; ?>> <button class=btn>Edit</button></a>
+                                            <a href=delete_course.php?id=<?php echo $course['course_id']; ?>>
+                                                <button class=btn>Delete</button></a>
+                                        </td>
                                         </tr>
                                 <?php
                                         }

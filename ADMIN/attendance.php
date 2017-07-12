@@ -90,7 +90,7 @@
                                         <td>Remarks</td>
                                         <td>Actions</td>
                                     </tr>
-                                </tdead>
+                                </thead>
 
 
                                 <tbody>

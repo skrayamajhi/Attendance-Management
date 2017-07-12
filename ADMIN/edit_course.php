@@ -11,11 +11,24 @@
     <?php 
         require 'config.php';
 
-        if (isset($_POST['save'])) {
-        # code...#
-        $insert = "INSERT INTO `course`(`course_id`, `course_name`, `duration`, `course_type`) VALUES ('".$_POST["cid"]."','".$_POST["cname"]."','".$_POST["duration"]."','".$_POST["ctype"]."')";
+    $data = mysqli_query($con,"SELECT * FROM course WHERE course_id='$_GET[id]'");
 
-        $result= mysqli_query($con,$insert);
+    $course=mysqli_fetch_array($data);
+
+    if (isset($_POST['save'])) {
+        # code...#
+        $course_id = $_POST['cid'];
+        $course_name = $_POST['cname'];
+        $duration = $_POST['duration'];
+        $course_type = $_POST['ctype'];
+
+        $update="UPDATE `course` SET  course_name = '$course_name',duration = '$duration', course_type = '$course_type' WHERE course_id = '$course_id'";
+        $result=mysqli_query($con,$update);
+        if ($result ==1 ) {
+            header('Location: http://localhost/Attendance-Management/ADMIN/course_details.php');
+            exit();
+        }
+
     }
 
     ?>
@@ -53,21 +66,21 @@
                         <form role="form" method="post">
                             <div class="form-group">
                                 <label class="control-label" for="cid">Course ID</label>
-                                <input type="text" class="form-control" id="cid" placeholder=" Enter ID" name="cid" required="">
+                                <input type="text" class="form-control" id="cid"  name="cid" value='<?php echo  $course['course_id']?>' readonly>
                             </div> 
                             <div class="form-group">
                                 <label class="control-label" for="cname">Course Name</label>
-                                <input type="text" class="form-control" id="cname" placeholder="Enter Name" name="cname" required="">
+                                <input type="text" class="form-control" id="cname" placeholder="Enter Name" name="cname" value='<?php echo  $course['course_name']?>' required="">
                             </div> 
 
                             <div class="form-group">
                                 <label class="control-label" for="duration">Duration</label>
-                                <input type="text" class="form-control" id="duration" placeholder="Enter Duration" name="duration" required="">
+                                <input type="text" class="form-control" id="duration" placeholder="Enter Duration" name="duration" value='<?php echo  $course['duration']?>' required="">
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label" for="ctype">Course Type</label>
-                                <input type="text" class="form-control" id="ctype" placeholder="Enter Course Type" name="ctype" required="">
+                                <input type="text" class="form-control" id="ctype" placeholder="Enter Course Type" name="ctype" value='<?php echo  $course['course_type']?>' required="">
                             </div>
 
                             <button type="submit" class="btn btn-success" name="save">Update</button>
