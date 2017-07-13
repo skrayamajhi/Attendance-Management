@@ -58,5 +58,5 @@
               </form>
 
             </div>
+          </body>
             <!-- /.login-box-body -->
-          </div>
